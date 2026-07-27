@@ -1,0 +1,23 @@
+<h2>Shopping Cart</h2>
+
+@if (cartService.items().length === 0) {
+  <p class="empty-state">Your cart is empty.</p>
+} @else {
+  @for (item of cartService.items(); track item.product.id) {
+    <div class="cart-item">
+      <div class="item-info">
+        <span class="item-name">{{ item.product.name }}</span>
+        <span class="item-meta">Qty: {{ item.quantity }}</span>
+      </div>
+      <div class="item-actions">
+        <span class="item-subtotal">{{ item.product.price * item.quantity | currency:'KES' }}</span>
+        <button class="remove-btn" (click)="cartService.removeFromCart(item.product.id)">Remove</button>
+      </div>
+    </div>
+  }
+
+  <div class="cart-summary">
+    <span class="cart-total">Total: {{ cartService.total() | currency:'KES' }}</span>
+    <a routerLink="/checkout" class="checkout-link">Proceed to Checkout</a>
+  </div>
+}

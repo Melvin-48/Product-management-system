@@ -1,1 +1,23 @@
-<p>main works!</p>
+<div class="search-bar">
+  <input [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)" placeholder="Search products..." />
+</div>
+
+@if (errorMessage()) {
+  <p style="color: var(--error);">{{ errorMessage() }}</p>
+}
+
+@if (filteredProducts().length === 0) {
+  <p class="empty-state">No products found matching "{{ searchTerm() }}".</p>
+} @else {
+  <ul class="product-list">
+    @for (product of filteredProducts(); track product.id) {
+      <li class="product-card">
+        <div class="product-info">
+          <a [routerLink]="['/products', product.id]" class="product-name">{{ product.name }}</a>
+          <span class="product-price">{{ product.price | currency:'KES' }}</span>
+        </div>
+        <button (click)="addToCart(product)">Add to Cart</button>
+      </li>
+    }
+  </ul>
+}

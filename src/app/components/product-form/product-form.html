@@ -1,0 +1,32 @@
+<div class="form-container">
+  <h2>{{ editingId !== null ? 'Edit Product' : 'Add Product' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label>Product Name</label>
+      <input type="text" formControlName="name" />
+      @if (productForm.get('name')?.hasError('required') && productForm.get('name')?.touched) {
+        <p class="field-error">Name is required.</p>
+      }
+      @if (productForm.get('name')?.hasError('duplicateName') && productForm.get('name')?.touched) {
+        <p class="field-error">A product with this name already exists.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label>Price</label>
+      <input type="number" formControlName="price" />
+      @if (productForm.get('price')?.hasError('required') && productForm.get('price')?.touched) {
+        <p class="field-error">Price is required.</p>
+      }
+      @if (productForm.get('price')?.hasError('min') && productForm.get('price')?.touched) {
+        <p class="field-error">Price must be at least 1.</p>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="productForm.invalid">
+        {{ editingId !== null ? 'Update Product' : 'Add Product' }}
+      </button>
+    </div>
+  </form>
+</div>

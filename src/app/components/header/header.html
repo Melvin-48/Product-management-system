@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header class="app-header">
+  <div>
+    <h1 class="brand">{{ appTitle }}</h1>
+  </div>
+  <nav>
+    <a routerLink="/products" routerLinkActive="active-link">Products</a>
+    <a routerLink="/cart" routerLinkActive="active-link" class="cart-link">
+      Cart
+      @if (cartItemCount() > 0) {
+        <span class="cart-badge">{{ cartItemCount() }}</span>
+      }
+    </a>
+  </nav>
+</header>

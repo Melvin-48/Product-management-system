@@ -1,0 +1,38 @@
+<div class="form-container">
+  <h2>Register</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label>Email</label>
+      <input type="email" formControlName="email" />
+      @if (registerForm.get('email')?.hasError('required') && registerForm.get('email')?.touched) {
+        <p class="field-error">Email is required.</p>
+      }
+      @if (registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched) {
+        <p class="field-error">Enter a valid email address.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label>Password</label>
+      <input type="password" formControlName="password" />
+      @if (registerForm.get('password')?.hasError('required') && registerForm.get('password')?.touched) {
+        <p class="field-error">Password is required.</p>
+      }
+      @if (registerForm.get('password')?.hasError('minlength') && registerForm.get('password')?.touched) {
+        <p class="field-error">Password must be at least 6 characters.</p>
+      }
+    </div>
+
+    <div class="field">
+      <label>Confirm Password</label>
+      <input type="password" formControlName="confirmPassword" />
+      @if (registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched) {
+        <p class="field-error">Passwords do not match.</p>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    </div>
+  </form>
+</div>
