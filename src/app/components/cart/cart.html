@@ -3,7 +3,7 @@
 @if (cartService.items().length === 0) {
   <p class="empty-state">Your cart is empty.</p>
 } @else {
-  @for (item of cartService.items(); track item.product.id) {
+  @for (item of cartService.items(); track item.product._id) {
     <div class="cart-item">
       <div class="item-info">
         <span class="item-name">{{ item.product.name }}</span>
@@ -11,7 +11,7 @@
       </div>
       <div class="item-actions">
         <span class="item-subtotal">{{ item.product.price * item.quantity | currency:'KES' }}</span>
-        <button class="remove-btn" (click)="cartService.removeFromCart(item.product.id)">Remove</button>
+        <button class="remove-btn" (click)="cartService.removeFromCart(item.product._id)">Remove</button>
       </div>
     </div>
   }

@@ -1,7 +1,7 @@
 @if (product()) {
   <h2>{{ product()!.name }}</h2>
   <p>Price: {{ product()!.price | currency:'KES' }}</p>
-  <a [routerLink]="['/products', product()!.id, 'edit']">Edit</a>
+  <a [routerLink]="['/products', product()!._id, 'edit']">Edit</a>
   <button (click)="onDelete()">Delete</button>
 } @else {
   <p>Product not found.</p>

@@ -6,8 +6,8 @@ export const productExistsGuard: CanActivateFn = (route, state) => {
   const productService = inject(ProductService);
   const router = inject(Router);
 
-  const id = Number(route.paramMap.get('id'));
-  const exists = productService.getProducts().some(p => p.id === id);
+  const id = route.paramMap.get('id');
+  const exists = productService.getProducts().some(p => p._id === id);
 
   if (exists) {
     return true;

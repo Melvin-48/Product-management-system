@@ -12,7 +12,7 @@ import { duplicateNameValidator } from './duplicate-name.validator';
 })
 export class ProductForm implements OnInit {
   productForm: FormGroup;
-  editingId: number | null = null;
+  editingId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,8 +29,8 @@ export class ProductForm implements OnInit {
   ngOnInit() {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
-      this.editingId = Number(idParam);
-      const existing = this.productService.getProducts().find(p => p.id === this.editingId);
+      this.editingId = idParam;
+      const existing = this.productService.getProducts().find(p => p._id === this.editingId);
       if (existing) {
         this.productForm.patchValue({ name: existing.name, price: existing.price });
       }

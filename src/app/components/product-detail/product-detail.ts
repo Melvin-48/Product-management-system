@@ -20,14 +20,14 @@ export class ProductDetail implements OnInit {
 
    ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.product.set(this.productService.getProducts().find(p => p.id === id));
+      const id = params.get('id');
+      this.product.set(this.productService.getProducts().find(p => p._id === id));
     });
   }
   onDelete() {
     const current = this.product();
     if (current && confirm(`Delete "${current.name}"?`)) {
-      this.productService.deleteProduct(current.id);
+      this.productService.deleteProduct(current._id);
       this.router.navigate(['/']);
     }
   }

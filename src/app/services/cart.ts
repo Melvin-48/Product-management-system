@@ -18,12 +18,12 @@ export class CartService {
 
   addToCart(product: Product) {
     const current = this.items();
-    const existing = current.find(item => item.product.id === product.id);
+    const existing = current.find(item => item.product._id === product._id);
 
     if (existing) {
       this.items.set(
         current.map(item =>
-          item.product.id === product.id
+          item.product._id === product._id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
@@ -33,7 +33,7 @@ export class CartService {
     }
   }
 
-  removeFromCart(productId: number) {
-    this.items.set(this.items().filter(item => item.product.id !== productId));
+  removeFromCart(productId: string) {
+    this.items.set(this.items().filter(item => item.product._id !== productId));
   }
 }

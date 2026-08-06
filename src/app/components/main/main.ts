@@ -1,4 +1,4 @@
-import { Component, signal, computed, OnInit } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
@@ -13,10 +13,8 @@ import { Highlight } from '../../directives/highlight';
   templateUrl: './main.html',
   styleUrl: './main.css'
 })
-export class Main implements OnInit {
+export class Main {
   searchTerm = signal('');
-  posts: any[] = [];
-  errorMessage = signal<string | null>(null);
   demoDate = new Date(Date.now() - 5 * 60 * 1000);
 
   constructor(
@@ -31,17 +29,5 @@ export class Main implements OnInit {
 
   addToCart(product: any) {
     this.cartService.addToCart(product);
-  }
-
-  ngOnInit() {
-    this.productService.getPosts().subscribe({
-      next: (data) => {
-        this.posts = data;
-      },
-      error: (err) => {
-        this.errorMessage.set('Failed to load posts. Please try again later.');
-        console.error('HTTP error:', err);
-      }
-    });
   }
 }
