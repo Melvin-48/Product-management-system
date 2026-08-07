@@ -14,6 +14,16 @@ export interface Product {
   isActive?: boolean;
 }
 
+export interface PaginatedResponse<T> {
+  data: T[];
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+  };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,8 +43,8 @@ export class ProductService {
   }
 
   fetchProducts() {
-    this.http.get<Product[]>(this.apiUrl).subscribe({
-      next: (data) => this.products.set(data),
+    this.http.get<PaginatedResponse<Product>>(this.apiUrl).subscribe({
+      next: (response) => this.products.set(response.data),
       error: (err) => console.error('Failed to fetch products', err)
     });
   }
